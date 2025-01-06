@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SyncBoard - Connexion</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+        min-height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 50px;
+      }
+
+      .header-logo {
+        color: white;
+        font-size: 3em;
+        font-weight: 600;
+        margin-bottom: 40px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-decoration: none;
+        transition: transform 0.3s ease;
+      }
+
+      .header-logo:hover {
+        transform: translateY(-2px);
+      }
+
+      .auth-container {
+        background: white;
+        padding: 50px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 450px;
+        text-align: center;
+      }
+
+      .form-title {
+        color: #2c3e50;
+        margin-bottom: 30px;
+        font-size: 1.4em;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #4a5568;
+        font-size: 0.9em;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 1em;
+        transition: border-color 0.3s ease;
+        box-sizing: border-box;
+      }
+
+      .form-group input:focus {
+        outline: none;
+        border-color: #4f46e5;
+      }
+
+      .submit-btn {
+        background: #4f46e5;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-size: 1em;
+        cursor: pointer;
+        width: 100%;
+        box-sizing: border-box;
+        transition: background-color 0.3s ease;
+      }
+
+      .submit-btn:hover {
+        background: #4338ca;
+      }
+
+      .toggle-form {
+        margin-top: 20px;
+        color: #6b7280;
+        font-size: 0.9em;
+      }
+
+      .toggle-btn {
+        color: #4f46e5;
+        text-decoration: underline;
+        cursor: pointer;
+        border: none;
+        background: none;
+        font-family: inherit;
+      }
+
+      .form-container {
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .login-type-selector {
+        margin-bottom: 30px;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+      }
+
+      .type-btn {
+        padding: 12px 24px;
+        border: 2px solid #4f46e5;
+        background: transparent;
+        color: #4f46e5;
+        border-radius: 8px;
+        cursor: pointer;
+        font-family: inherit;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .type-btn i {
+        font-size: 1.1em;
+      }
+
+      .type-btn.active {
+        background: #4f46e5;
+        color: white;
+      }
+
+      .form-container {
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+        transition: opacity 0.3s ease;
+      }
+
+      .form-container.active {
+        opacity: 1;
+        height: auto;
+      }
+
+      .logo-container {
+        margin-bottom: 20px;
+      }
+
+      .logo-container img {
+        width: 120px;
+        height: auto;
+      }
+
+      .info-message {
+        background: #f8fafc;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        text-align: left;
+        border-left: 4px solid #4f46e5;
+      }
+
+      .info-message i {
+        color: #4f46e5;
+        margin-right: 10px;
+        font-size: 1.2em;
+      }
+
+      .info-message p {
+        margin: 10px 0 0;
+        color: #4b5563;
+        line-height: 1.6;
+      }
+
+      .contact-options {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin: 30px 0;
+      }
+
+      .contact-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 12px 20px;
+        background: #f8fafc;
+        color: #4f46e5;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+
+      .contact-btn:hover {
+        background: #4f46e5;
+        color: white;
+      }
+
+      .error-popup {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #dc2626;
+        color: white;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        z-index: 1000;
+        animation: slideIn 0.3s ease-out;
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      .error-popup i {
+        font-size: 1.2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="/" class="header-logo">SyncBoard</a>
+
+    <div class="auth-container">
+      <div class="login-type-selector">
+        <button class="type-btn active" onclick="switchLoginType('user')">
+          <i class="fas fa-user"></i>
+          Utilisateur
+        </button>
+        <button class="type-btn" onclick="switchLoginType('admin')">
+          <i class="fas fa-building"></i>
+          Entreprise
+        </button>
+      </div>
+
+      <!-- Formulaire de connexion Utilisateur -->
+      <div id="userLoginForm" class="form-container active">
+        <h2 class="form-title">
+          <i class="fas fa-user-circle"></i>
+          Connexion Utilisateur
+        </h2>
+        <% if (typeof error !== 'undefined' && error) { %>
+        <div class="error-popup">
+          <i class="fas fa-exclamation-circle"></i>
+          <%= error %>
+        </div>
+        <script>
+          setTimeout(() => {
+            const errorPopup = document.querySelector(".error-popup");
+            if (errorPopup) {
+              errorPopup.style.opacity = "0";
+              errorPopup.style.transform = "translateX(100%)";
+              setTimeout(() => errorPopup.remove(), 300);
+            }
+          }, 5000);
+        </script>
+        <% } %>
+        <form action="/login/user" method="POST">
+          <div class="form-group">
+            <label for="userEmail">
+              <i class="fas fa-envelope"></i>
+              Email
+            </label>
+            <input type="email" id="userEmail" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="userPassword">
+              <i class="fas fa-lock"></i>
+              Mot de passe
+            </label>
+            <input type="password" id="userPassword" name="password" required />
+          </div>
+          <button type="submit" class="submit-btn">
+            <i class="fas fa-sign-in-alt"></i>
+            Se connecter
+          </button>
+        </form>
+        <div class="toggle-form">
+          Pas encore de compte ?
+          <button class="toggle-btn" onclick="toggleForms('user')">
+            <i class="fas fa-user-plus"></i>
+            Créer un compte
+          </button>
+        </div>
+      </div>
+
+      <!-- Formulaire de connexion Administrateur -->
+      <div id="adminLoginForm" class="form-container">
+        <h2 class="form-title">
+          <i class="fas fa-building"></i>
+          Connexion Entreprise
+        </h2>
+        <% if (typeof error !== 'undefined' && error) { %>
+        <div class="error-popup">
+          <i class="fas fa-exclamation-circle"></i>
+          <%= error %>
+        </div>
+        <script>
+          setTimeout(() => {
+            const errorPopup = document.querySelector(".error-popup");
+            if (errorPopup) {
+              errorPopup.style.opacity = "0";
+              errorPopup.style.transform = "translateX(100%)";
+              setTimeout(() => errorPopup.remove(), 300);
+            }
+          }, 5000);
+        </script>
+        <% } %>
+        <form action="/login/admin" method="POST">
+          <div class="form-group">
+            <label for="adminEmail">
+              <i class="fas fa-envelope"></i>
+              Email professionnel
+            </label>
+            <input type="email" id="adminEmail" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="adminPassword">
+              <i class="fas fa-lock"></i>
+              Mot de passe
+            </label>
+            <input
+              type="password"
+              id="adminPassword"
+              name="password"
+              required
+            />
+          </div>
+          <button type="submit" class="submit-btn">Se connecter</button>
+        </form>
+        <div class="toggle-form">
+          Créer une entreprise ?
+          <button class="toggle-btn" onclick="toggleForms('admin')">
+            S'inscrire
+          </button>
+        </div>
+      </div>
+
+      <!-- Formulaire d'inscription Utilisateur -->
+      <div id="userRegisterForm" class="form-container">
+        <h2 class="form-title">
+          <i class="fas fa-user-plus"></i>
+          Création de Compte Utilisateur
+        </h2>
+        <div class="info-message">
+          <i class="fas fa-info-circle"></i>
+          <p>
+            La création de compte utilisateur est réservée aux entreprises.
+            Veuillez contacter votre entreprise pour obtenir vos identifiants de
+            connexion.
+          </p>
+        </div>
+        <div class="toggle-form">
+          <button class="toggle-btn" onclick="toggleForms('user')">
+            <i class="fas fa-arrow-left"></i>
+            Retour à la connexion
+          </button>
+        </div>
+      </div>
+
+      <!-- Formulaire d'inscription Administrateur -->
+      <div id="adminRegisterForm" class="form-container">
+        <h2 class="form-title">
+          <i class="fas fa-building"></i>
+          Création de Compte Entreprise
+        </h2>
+        <div class="info-message">
+          <i class="fas fa-info-circle"></i>
+          <p>
+            Pour créer un compte entreprise, veuillez nous contacter
+            directement. Un membre de notre équipe vous accompagnera dans la
+            mise en place de votre espace.
+          </p>
+        </div>
+        <div class="contact-options">
+          <a href="mailto:contact@syncboard.aparis.pro" class="contact-btn">
+            <i class="fas fa-envelope"></i>
+            Nous contacter par email
+          </a>
+          <a href="tel:+33000000000" class="contact-btn">
+            <i class="fas fa-phone"></i>
+            Nous appeler
+          </a>
+        </div>
+        <div class="toggle-form">
+          <button class="toggle-btn" onclick="toggleForms('admin')">
+            <i class="fas fa-arrow-left"></i>
+            Retour à la connexion
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function switchLoginType(type) {
+        const buttons = document.querySelectorAll(".type-btn");
+        buttons.forEach((btn) => btn.classList.remove("active"));
+        event.target.classList.add("active");
+
+        const forms = document.querySelectorAll(".form-container");
+        forms.forEach((form) => form.classList.remove("active"));
+
+        if (type === "user") {
+          document.getElementById("userLoginForm").classList.add("active");
+        } else {
+          document.getElementById("adminLoginForm").classList.add("active");
+        }
+      }
+
+      function toggleForms(type) {
+        const loginForm = document.getElementById(`${type}LoginForm`);
+        const registerForm = document.getElementById(`${type}RegisterForm`);
+
+        loginForm.classList.toggle("active");
+        registerForm.classList.toggle("active");
+      }
+    </script>
+  </body>
+</html>

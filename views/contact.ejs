@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SyncBoard - Contact</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f7fa;
+        color: #333;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+        padding: 20px 0;
+        text-align: center;
+      }
+
+      .header-logo {
+        color: white;
+        font-size: 2em;
+        font-weight: 600;
+        text-decoration: none;
+        transition: transform 0.3s ease;
+      }
+
+      .header-logo:hover {
+        transform: translateY(-2px);
+      }
+
+      .contact-container {
+        max-width: 800px;
+        margin: 60px auto;
+        padding: 0 20px;
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        margin-bottom: 60px;
+      }
+
+      .contact-card {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease;
+      }
+
+      .contact-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .contact-icon {
+        font-size: 2em;
+        color: #4f46e5;
+        margin-bottom: 15px;
+      }
+
+      .contact-title {
+        font-size: 1.2em;
+        color: #2d3748;
+        margin-bottom: 10px;
+      }
+
+      .contact-info {
+        color: #6b7280;
+      }
+
+      .contact-form {
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      }
+
+      .form-title {
+        text-align: center;
+        color: #2d3748;
+        font-size: 1.8em;
+        margin-bottom: 30px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #4b5563;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        font-family: inherit;
+        font-size: 1em;
+      }
+
+      .form-group textarea {
+        height: 150px;
+        resize: vertical;
+      }
+
+      .submit-btn {
+        background: #4f46e5;
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 8px;
+        font-size: 1em;
+        cursor: pointer;
+        width: 100%;
+        transition: background-color 0.3s ease;
+      }
+
+      .submit-btn:hover {
+        background: #4338ca;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <a href="/" class="header-logo">SyncBoard</a>
+    </div>
+
+    <div class="contact-container">
+      <div class="contact-grid">
+        <div class="contact-card">
+          <i class="fas fa-envelope contact-icon"></i>
+          <h3 class="contact-title">Email</h3>
+          <p class="contact-info">contact@syncboard.aparis.pro</p>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <h2 class="form-title">Envoyez-nous un message</h2>
+        <form action="/contact" method="POST">
+          <div class="form-group">
+            <label for="name">Nom complet</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="subject">Sujet</label>
+            <input type="text" id="subject" name="subject" required />
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+          <button type="submit" class="submit-btn">
+            <i class="fas fa-paper-plane"></i>
+            Envoyer le message
+          </button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

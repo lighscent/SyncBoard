@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SyncBoard - Tableau de bord</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f3f4f6;
+        color: #1f2937;
+      }
+
+      .header {
+        background: white;
+        padding: 20px;
+        color: #1f2937;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      .header-logo {
+        color: #4f46e5;
+        text-decoration: none;
+        font-size: 1.5em;
+        font-weight: 600;
+      }
+
+      .company-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #4b5563;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        gap: 40px;
+      }
+
+      .sidebar {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        height: fit-content;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 15px;
+        color: #4b5563;
+        text-decoration: none;
+        border-radius: 6px;
+        margin-bottom: 5px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-item:hover,
+      .nav-item.active {
+        background: #f3f4f6;
+        color: #4f46e5;
+      }
+
+      .nav-item i {
+        width: 20px;
+      }
+
+      .main-content {
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      .section-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        color: #1f2937;
+      }
+
+      .section-title h2 {
+        margin: 0;
+        font-size: 1.5em;
+      }
+
+      .dashboard-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+
+      .stat-card {
+        background: #f9fafb;
+        padding: 20px;
+        border-radius: 8px;
+        border: 1px solid #e5e7eb;
+      }
+
+      .stat-card h3 {
+        color: #4b5563;
+        margin: 0 0 10px 0;
+        font-size: 1em;
+      }
+
+      .stat-card p {
+        color: #1f2937;
+        font-size: 2em;
+        font-weight: 600;
+        margin: 0;
+      }
+
+      .btn-primary {
+        background: #4f46e5;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: background 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        background: #4338ca;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <a href="/" class="header-logo">SyncBoard</a>
+      <div class="company-info">
+        <i class="fas fa-building"></i>
+        <span><%= company.name %></span>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="dashboard-grid">
+        <div class="sidebar">
+          <a href="/company" class="nav-item active">
+            <i class="fas fa-home"></i>
+            Tableau de bord
+          </a>
+          <a href="/company/users" class="nav-item">
+            <i class="fas fa-users"></i>
+            Utilisateurs
+          </a>
+          <a href="/company/settings" class="nav-item">
+            <i class="fas fa-cog"></i>
+            Paramètres
+          </a>
+          <a href="/auth/logout" class="nav-item">
+            <i class="fas fa-sign-out-alt"></i>
+            Déconnexion
+          </a>
+        </div>
+
+        <div class="main-content">
+          <div class="section-title">
+            <h2>Tableau de bord</h2>
+          </div>
+
+          <!-- Contenu du tableau de bord -->
+          <div class="dashboard-stats">
+            <div class="stat-card">
+              <h3>Nombre d'utilisateurs</h3>
+              <p><%= company.userCount || 0 %></p>
+            </div>
+            <!-- Ajoutez d'autres statistiques ici -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

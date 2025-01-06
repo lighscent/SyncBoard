@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SyncBoard - Panel Administrateur</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #1a1a1a;
+        color: #e5e7eb;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+        padding: 20px;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .header-logo {
+        color: white;
+        text-decoration: none;
+        font-size: 1.5em;
+        font-weight: 600;
+      }
+
+      .admin-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        gap: 30px;
+      }
+
+      .sidebar {
+        background: #2d2d2d;
+        padding: 20px;
+        border-radius: 12px;
+      }
+
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 15px;
+        color: #e5e7eb;
+        text-decoration: none;
+        border-radius: 8px;
+        margin-bottom: 8px;
+        transition: background-color 0.3s;
+      }
+
+      .nav-item:hover,
+      .nav-item.active {
+        background: #4f46e5;
+        color: white;
+      }
+
+      .main-content {
+        background: #2d2d2d;
+        padding: 30px;
+        border-radius: 12px;
+      }
+
+      .section-title {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .section-title h2 {
+        color: #ffffff;
+        margin: 0;
+      }
+
+      .btn-primary {
+        background: #4f46e5;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background: #363636;
+        border-radius: 8px;
+        overflow: visible;
+        position: relative;
+      }
+
+      .data-table th {
+        background: #404040;
+        color: #e5e7eb;
+        padding: 12px;
+        text-align: left;
+      }
+
+      .data-table td {
+        padding: 12px;
+        border-top: 1px solid #404040;
+        color: #e5e7eb;
+      }
+
+      .data-table tr:hover {
+        background: #404040;
+      }
+
+      .status-badge {
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.9em;
+      }
+
+      .status-actif {
+        background: #059669;
+        color: white;
+      }
+
+      .status-inactif {
+        background: #dc2626;
+        color: white;
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+      }
+
+      .modal-content {
+        background: #2d2d2d;
+        color: #e5e7eb;
+        width: 90%;
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 30px;
+        border-radius: 10px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #4b5563;
+      }
+
+      .form-group input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px;
+        border: 1px solid #404040;
+        border-radius: 6px;
+        background: #363636;
+        color: #e5e7eb;
+      }
+
+      .form-group input:focus {
+        border-color: #4f46e5;
+        outline: none;
+      }
+
+      .password-container {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        width: 100%;
+      }
+
+      .password-container input {
+        flex: 1;
+        width: auto;
+      }
+
+      .copy-btn {
+        padding: 8px;
+        background: #4f46e5;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        cursor: pointer;
+      }
+
+      .copy-btn:hover {
+        background: #4338ca;
+      }
+
+      .modal-buttons {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 20px;
+      }
+
+      .btn-secondary {
+        background: #4b5563;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      .btn-secondary:hover {
+        background: #374151;
+      }
+
+      small {
+        display: block;
+        margin-top: 5px;
+        color: #9ca3af;
+      }
+
+      .actions-dropdown {
+        position: relative;
+        display: inline-block;
+      }
+
+      .actions-btn {
+        background: none;
+        border: none;
+        color: #e5e7eb;
+        cursor: pointer;
+        padding: 5px;
+      }
+
+      .actions-content {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 100%;
+        background: #363636;
+        min-width: 200px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        z-index: 1000;
+        margin-right: 10px;
+      }
+
+      .data-table td:last-child {
+        position: relative;
+      }
+
+      .actions-content button {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        padding: 12px 15px;
+        border: none;
+        background: none;
+        color: #e5e7eb;
+        cursor: pointer;
+        text-align: left;
+        transition: background-color 0.2s;
+        white-space: nowrap;
+      }
+
+      .actions-content button:hover {
+        background: #404040;
+      }
+
+      .actions-content button i {
+        width: 16px;
+      }
+
+      .show {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <a href="/" class="header-logo">SyncBoard</a>
+      <div class="admin-info">
+        <i class="fas fa-user-shield"></i>
+        <span>Admin</span>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="dashboard-grid">
+        <div class="sidebar">
+          <a href="#" class="nav-item active">
+            <i class="fas fa-building"></i>
+            Entreprises
+          </a>
+          <a href="/admin/users" class="nav-item">
+            <i class="fas fa-users"></i>
+            Utilisateurs
+          </a>
+          <a href="/admin/managers" class="nav-item">
+            <i class="fas fa-user-tie"></i>
+            Gérants
+          </a>
+          <a href="#" class="nav-item">
+            <i class="fas fa-chart-bar"></i>
+            Statistiques
+          </a>
+          <a href="#" class="nav-item">
+            <i class="fas fa-cog"></i>
+            Paramètres
+          </a>
+        </div>
+
+        <div class="main-content">
+          <div class="section-title">
+            <h2>Gestion des Entreprises</h2>
+            <button class="btn-primary" onclick="openModal()">
+              <i class="fas fa-plus"></i>
+              Nouvelle Entreprise
+            </button>
+          </div>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Entreprise</th>
+                <th>Email</th>
+                <th>Date de création</th>
+                <th>Utilisateurs</th>
+                <th>Gérants</th>
+                <th>Statut</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% companies.forEach(company => { %>
+              <tr>
+                <td><%= company.name %></td>
+                <td><%= company.email %></td>
+                <td><%= company.createdAt %></td>
+                <td><%= company.userCount %></td>
+                <td><%= company.managers ? company.managers.length : 0 %></td>
+                <td>
+                  <span class="status-badge <%= company.status %>">
+                    <%= company.status %>
+                  </span>
+                </td>
+                <td>
+                  <div class="actions-dropdown">
+                    <button
+                      class="actions-btn"
+                      onclick="toggleActions('<%= company.id %>')"
+                    >
+                      <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <div id="actions-<%= company.id %>" class="actions-content">
+                      <div class="actions-menu">
+                        <button onclick="editCompany('<%= company._id %>')">
+                          <i class="fas fa-edit"></i>
+                          Modifier
+                        </button>
+                        <button onclick="sendCredentials('<%= company._id %>')">
+                          <i class="fas fa-key"></i>
+                          Send Credentials
+                        </button>
+                        <button onclick="deleteCompany('<%= company.id %>')">
+                          <i class="fas fa-trash"></i>
+                          Delete Entreprise
+                        </button>
+                        <button onclick="addManager('<%= company._id %>')">
+                          <i class="fas fa-user-plus"></i>
+                          Ajouter un gérant
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="companyModal" class="modal">
+      <div class="modal-content">
+        <h2>Nouvelle Entreprise</h2>
+        <form action="/admin/companies" method="POST">
+          <div class="form-group">
+            <label for="companyName">Nom de l'entreprise</label>
+            <input type="text" id="companyName" name="name" required />
+          </div>
+          <div class="form-group">
+            <label for="companyEmail">Email professionnel</label>
+            <input type="email" id="companyEmail" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="companyPassword">Mot de passe généré</label>
+            <div class="password-container">
+              <input
+                type="text"
+                id="companyPassword"
+                name="password"
+                readonly
+              />
+              <button type="button" onclick="copyPassword()" class="copy-btn">
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
+            <small
+              >Ce mot de passe sera nécessaire pour la première connexion</small
+            >
+          </div>
+          <div class="modal-buttons">
+            <button type="submit" class="btn-primary">Créer</button>
+            <button type="button" onclick="closeModal()" class="btn-secondary">
+              Annuler
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="managerModal" class="modal">
+      <div class="modal-content">
+        <h2>Ajouter un gérant</h2>
+        <form id="addManagerForm">
+          <div class="form-group">
+            <label for="managerFirstName">Prénom</label>
+            <input
+              type="text"
+              id="managerFirstName"
+              name="firstName"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="managerName">Nom</label>
+            <input type="text" id="managerName" name="name" required />
+          </div>
+          <div class="form-group">
+            <label for="managerEmail">Email professionnel</label>
+            <input type="email" id="managerEmail" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="managerPhone">Numéro de téléphone</label>
+            <input
+              type="tel"
+              id="managerPhone"
+              name="phone"
+              required
+              pattern="[0-9]{10}"
+            />
+            <small>Format: 0612345678</small>
+          </div>
+          <div class="modal-buttons">
+            <button type="submit" class="btn-primary">Ajouter</button>
+            <button
+              type="button"
+              onclick="closeManagerModal()"
+              class="btn-secondary"
+            >
+              Annuler
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="/js/admin.js"></script>
+  </body>
+</html>

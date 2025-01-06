@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SyncBoard - Gestion des Utilisateurs</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #1a1a1a;
+        color: #e5e7eb;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+        padding: 20px;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .header-logo {
+        color: white;
+        text-decoration: none;
+        font-size: 1.5em;
+        font-weight: 600;
+      }
+
+      .admin-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        gap: 40px;
+      }
+
+      .sidebar {
+        background: #262626;
+        padding: 20px;
+        border-radius: 8px;
+        height: fit-content;
+      }
+
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 15px;
+        color: #e5e7eb;
+        text-decoration: none;
+        border-radius: 6px;
+        margin-bottom: 5px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-item:hover,
+      .nav-item.active {
+        background: #404040;
+      }
+
+      .nav-item i {
+        width: 20px;
+      }
+
+      .main-content {
+        background: #262626;
+        padding: 30px;
+        border-radius: 8px;
+      }
+
+      .section-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+
+      .section-title h2 {
+        margin: 0;
+        font-size: 1.5em;
+      }
+
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .data-table th,
+      .data-table td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #404040;
+      }
+
+      .data-table th {
+        font-weight: 600;
+        color: #9ca3af;
+      }
+
+      .data-table tr:hover {
+        background: #2d2d2d;
+      }
+
+      .btn-secondary,
+      .btn-danger {
+        padding: 8px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-right: 5px;
+        transition: all 0.3s ease;
+        background: transparent;
+        color: #e5e7eb;
+      }
+
+      .btn-secondary:hover {
+        background: #4f46e5;
+      }
+
+      .btn-danger:hover {
+        background: #dc2626;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <a href="/" class="header-logo">SyncBoard</a>
+      <div class="admin-info">
+        <i class="fas fa-user-shield"></i>
+        <span>Admin</span>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="dashboard-grid">
+        <div class="sidebar">
+          <a href="/admin" class="nav-item">
+            <i class="fas fa-building"></i>
+            Entreprises
+          </a>
+          <a href="/admin/users" class="nav-item active">
+            <i class="fas fa-users"></i>
+            Utilisateurs
+          </a>
+          <a href="/admin/managers" class="nav-item">
+            <i class="fas fa-user-tie"></i>
+            Gérants
+          </a>
+          <a href="#" class="nav-item">
+            <i class="fas fa-chart-bar"></i>
+            Statistiques
+          </a>
+          <a href="#" class="nav-item">
+            <i class="fas fa-cog"></i>
+            Paramètres
+          </a>
+        </div>
+
+        <div class="main-content">
+          <div class="section-title">
+            <h2>Liste des Utilisateurs</h2>
+          </div>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Entreprise</th>
+                <th>Date d'inscription</th>
+                <th>Statut</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% users.forEach(user => { %>
+              <tr>
+                <td><%= user.name %></td>
+                <td><%= user.email %></td>
+                <td><%= user.companyName %></td>
+                <td><%= user.createdAt %></td>
+                <td><%= user.status %></td>
+                <td>
+                  <button
+                    onclick="resetUserPassword('<%= user._id %>')"
+                    class="btn-secondary"
+                  >
+                    <i class="fas fa-key"></i>
+                  </button>
+                  <button
+                    onclick="toggleUserStatus('<%= user._id %>')"
+                    class="btn-secondary"
+                  >
+                    <i class="fas fa-power-off"></i>
+                  </button>
+                  <button
+                    onclick="removeUser('<%= user._id %>')"
+                    class="btn-danger"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/admin.js"></script>
+  </body>
+</html>

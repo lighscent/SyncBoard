@@ -2,8 +2,350 @@
 <html>
   <head>
     <title>SyncBoard</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f7fa;
+        color: #333;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .hero {
+        background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+        padding: 100px 0;
+        text-align: center;
+        color: white;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,208C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+        background-repeat: no-repeat;
+        background-position: bottom;
+        opacity: 0.4;
+      }
+      .hero h1 {
+        font-size: 4em;
+        font-weight: 600;
+        margin-bottom: 20px;
+        position: relative;
+      }
+      .hero p {
+        font-size: 1.4em;
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+        opacity: 0.9;
+      }
+      .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 40px;
+        padding: 80px 0;
+      }
+      .feature-card {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease;
+      }
+      .feature-card:hover {
+        transform: translateY(-5px);
+      }
+      .feature-card h3 {
+        color: #4f46e5;
+        font-size: 1.5em;
+        margin-bottom: 20px;
+        font-weight: 600;
+      }
+      .feature-card p {
+        color: #666;
+        font-size: 1.1em;
+        line-height: 1.8;
+      }
+      @media (max-width: 768px) {
+        .hero {
+          padding: 60px 0;
+        }
+        .hero h1 {
+          font-size: 2.5em;
+        }
+        .hero p {
+          font-size: 1.2em;
+          padding: 0 20px;
+        }
+        .features {
+          padding: 40px 20px;
+        }
+      }
+      .cta-buttons {
+        margin-top: 40px;
+      }
+      .btn {
+        display: inline-block;
+        padding: 15px 40px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+        z-index: 1;
+      }
+      .btn-primary {
+        background-color: #fff;
+        color: #4f46e5;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        background-color: #f8f9fa;
+      }
+      .stats {
+        background: #fff;
+        padding: 80px 0;
+        text-align: center;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .stat-item {
+        padding: 20px;
+      }
+
+      .stat-number {
+        font-size: 2.5em;
+        font-weight: 600;
+        color: #4f46e5;
+        margin-bottom: 10px;
+      }
+
+      .stat-label {
+        color: #6b7280;
+        font-size: 1.1em;
+      }
+
+      .why-us {
+        padding: 80px 0;
+        background: #f8fafc;
+      }
+
+      .why-us h2 {
+        text-align: center;
+        font-size: 2.5em;
+        color: #2d3748;
+        margin-bottom: 60px;
+      }
+
+      .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .benefit-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+      }
+
+      .benefit-icon {
+        font-size: 2em;
+        color: #4f46e5;
+      }
+
+      .benefit-content h3 {
+        color: #2d3748;
+        margin-bottom: 10px;
+      }
+
+      .benefit-content p {
+        color: #6b7280;
+        line-height: 1.6;
+      }
+
+      .cta-section {
+        background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+        padding: 80px 0;
+        text-align: center;
+        color: white;
+      }
+
+      .cta-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .cta-content h2 {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+      }
+
+      .cta-buttons {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 40px;
+      }
+
+      .btn-secondary {
+        background: transparent;
+        border: 2px solid white;
+        color: white;
+      }
+
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+    </style>
   </head>
   <body>
-    <h1>Hello World</h1>
+    <div class="hero">
+      <div class="container">
+        <h1>SyncBoard</h1>
+        <p>
+          La solution intelligente pour gérer vos plannings, présences et
+          activités en toute simplicité
+        </p>
+        <div class="cta-buttons">
+          <a href="/login" class="btn btn-primary">Essayer maintenant</a>
+          <a href="#why-us" class="btn btn-secondary">En savoir plus</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">500+</div>
+          <div class="stat-label">Entreprises nous font confiance</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">50k+</div>
+          <div class="stat-label">Utilisateurs actifs</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">99.9%</div>
+          <div class="stat-label">Disponibilité</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">24/7</div>
+          <div class="stat-label">Support client</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="features">
+        <div class="feature-card">
+          <h3>Gestion des Plannings</h3>
+          <p>
+            Organisez facilement vos emplois du temps et coordonnez les
+            activités de votre équipe en temps réel.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3>Suivi des Présences</h3>
+          <p>
+            Suivez et gérez les présences de manière efficace avec notre système
+            automatisé de pointage.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3>Organisation d'Activités</h3>
+          <p>
+            Planifiez et coordonnez vos activités avec un calendrier intuitif et
+            des rappels automatiques.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="why-us" id="why-us">
+      <h2>Pourquoi choisir SyncBoard ?</h2>
+      <div class="benefits-grid">
+        <div class="benefit-item">
+          <i class="fas fa-shield-alt benefit-icon"></i>
+          <div class="benefit-content">
+            <h3>Sécurité maximale</h3>
+            <p>
+              Vos données sont protégées par un chiffrement de bout en bout et
+              des protocoles de sécurité avancés.
+            </p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <i class="fas fa-sync benefit-icon"></i>
+          <div class="benefit-content">
+            <h3>Synchronisation en temps réel</h3>
+            <p>
+              Toutes les modifications sont instantanément synchronisées sur
+              tous les appareils.
+            </p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <i class="fas fa-chart-line benefit-icon"></i>
+          <div class="benefit-content">
+            <h3>Analyses détaillées</h3>
+            <p>
+              Obtenez des insights précieux sur la gestion de votre équipe et
+              l'utilisation des ressources.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <div class="cta-content">
+        <h2>Prêt à optimiser votre gestion d'équipe ?</h2>
+        <p>
+          Rejoignez les milliers d'entreprises qui font confiance à SyncBoard
+          pour leur organisation quotidienne.
+        </p>
+        <div class="cta-buttons">
+          <a href="/login" class="btn btn-primary">Commencer gratuitement</a>
+          <a href="/contact" class="btn btn-secondary"
+            >Contacter l'équipe commerciale</a
+          >
+        </div>
+      </div>
+    </div>
   </body>
 </html>
