@@ -1,0 +1,20 @@
+{
+  "name": "syncboard",
+  "version": "1.0.0",
+  "description": "Une plateforme web pour organiser plannings, présences et activités.",
+  "main": "main.js",
+  "author": "lighscent",
+  "license": "MIT",
+  "scripts": {
+    "start": "node main.js",
+    "dev": "nodemon main.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
+  }
+}
